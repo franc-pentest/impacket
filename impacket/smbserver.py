@@ -1341,11 +1341,11 @@ class SMBCommands:
                          os.lseek(fileHandle,comWriteParameters['Offset'],0)
                          os.write(fileHandle,comWriteData['Data'])
                      else:
+                         # Should resolve the TODO
+                         # When an offset higher than the file size is received, the gap is fill with \x00.
                          zeroToWrite = comWriteParameters['Offset'] - os.lseek(fileHandle, 0, 2)
                          os.write(fileHandle, "\x00" * zeroToWrite)
                          os.write(fileHandle, comWriteData['Data'])
-
-
                  else:
                      sock = connData['OpenedFiles'][comWriteParameters['Fid']]['Socket']
                      sock.send(comWriteData['Data'])
